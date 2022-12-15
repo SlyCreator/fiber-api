@@ -1,0 +1,29 @@
+name: Create, Approve & Merge PR
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  create_and_approve_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create PR
+        uses: slycreator
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Automatically created PR
+          base: prod
+          head: dev
+        - name: Approve PR
+          uses: peter-evans
+          with:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            action: approve
+        - name: Merge PR
+          uses: slycreator
+          with:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            action: merge
