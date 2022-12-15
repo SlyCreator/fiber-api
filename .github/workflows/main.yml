@@ -11,19 +11,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Create PR
-        uses: slycreator
+        uses: slycreator/fiber-api@<ref>
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Automatically created PR
           base: prod
           head: dev
       - name: Approve PR
-        uses: slycreator
+        uses: slycreator/fiber-api@<ref>
         with:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             action: approve
       - name: Merge PR
-        uses: slycreator
+        uses: slycreator/fiber-api@<ref>
         with:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             action: merge
