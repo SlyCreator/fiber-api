@@ -19,6 +19,7 @@ class UserRepository
 
     public function store(array $attributes)
     {
+        $attributes['password'] = Hash::make($attributes['password']);
         return $this->user->create($attributes);
     }
 
