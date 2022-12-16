@@ -31,17 +31,20 @@ class UserController extends Controller
         abort_if(!$user,404,"User with the email not found");
 
         if (Hash::check($request->password, $user->password)) {
-            $token = $user->createToken('access token')->accessToken;
-          //  dd($token);
+            $token = $user->createToken('Personal Access Token');
+
             return $this->response([
-                'access_token' => $token['token'],
                 'user' => $user,
+                'access_token' =>  $token->accessToken,
+
             ], Response::HTTP_OK);
         }
-
-
-
         return $this->response([], Response::HTTP_UNAUTHORIZED);
+    }
 
+    public function profile()
+    {
+        $data = auth()->user();
+        return $this->response($data,Response::HTTP_OK);
     }
 }
