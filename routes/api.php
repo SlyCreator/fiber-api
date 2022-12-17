@@ -25,7 +25,7 @@ Route::prefix('auth')->group(function (){
 });
 Route::middleware(['auth:api'])->group(function () {
     Route::prefix('user')->group(function (){
-        Route::get('/profile',[UserController::class,'login']);
+        Route::get('/profile',[UserController::class,'profile']);
     });
 
     Route::prefix('teams')->group(function (){
