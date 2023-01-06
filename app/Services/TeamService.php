@@ -17,7 +17,7 @@ class TeamService
 
     public function fetchUserTeams()
     {
-        return $this->teamRepository->findById();
+        return $this->teamRepository->fetchUsersTeam();
     }
 
     public function storeTeam($data)
@@ -30,4 +30,12 @@ class TeamService
         return $this->teamRepository->findById($id);
     }
 
+    public function addMemberToTeam($attributes,$team_id)
+    {
+        return $this->teamRepository->addToTeam($attributes,$team_id);
+    }
+    public function removeMemberFromTeam($team_id,$member_id)
+    {
+        return $this->teamRepository->removeMember($team_id,$member_id);
+    }
 }

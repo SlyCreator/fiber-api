@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddMemberToTeamRequest;
+use App\Http\Requests\StoreTeamRequest;
 use App\Models\Team;
 use App\Services\TeamService;
 use Illuminate\Http\Request;
@@ -32,7 +34,7 @@ class TeamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTeamRequest $request)
     {
         $data = $this->teamService->storeTeam($request->all());
         return $this->response($data,Response::HTTP_CREATED);
@@ -44,8 +46,9 @@ class TeamController extends Controller
      * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function show(Team $team)
+    public function show($teamId)
     {
+        $team = $this->teamService->fetchTeam($teamId);
         return $this->response($team,Response::HTTP_OK);
     }
 
@@ -71,4 +74,23 @@ class TeamController extends Controller
     {
         //
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Team  $team
+     * @return \Illuminate\Http\Response
+     */
+    public function addMember(AddMemberToTeamRequest $request,$team_id)
+    {
+        $data = $this->teamService->addMemberToTeam($request->all(),$team_id);
+        return $this->response($data,Response::HTTP_CREATED);
+    }
+    public function removeMember($team_id,$member_id)
+    {
+        $data = $this->teamService->removeMemberFromTeam($team_id,$member_id);
+        return $this->response([],Response::HTTP_NO_CONTENT);
+    }
+
 }

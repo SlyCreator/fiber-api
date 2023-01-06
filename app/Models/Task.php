@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model
+class Task extends Model
 {
-    use HasFactory;
     use HasFactory;
     /**
      * The attributes that are mass assignable.
@@ -15,15 +14,16 @@ class Member extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'title',
+        'description',
         'team_id',
-        'role'
+        'user_id',
+        'assignee_id',
+        'state'
     ];
 
     public function team()
     {
         return $this->belongsTo(Team::class);
     }
-
 }
